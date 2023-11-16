@@ -45,38 +45,38 @@ jobs:
 
       - name: Publish Windows-x64
         if: matrix.configuration == 'Release' && matrix.runs-on == 'windows-latest'
-        run: dotnet publish --configuration Release -p:PublishSingleFile=true -p:DebugType=embedded --self-contained --runtime win-x64 --property:PublishDir=selfcontained-win-x64
+        run: dotnet publish --configuration Release -p:PublishSingleFile=true -p:DebugType=embedded --self-contained --runtime win-x64 --property:PublishDir=${{env.DOTNET_ROOT}}/selfcontained-win-x64
 
       - name: Publish Windows-arm64
         if: matrix.configuration == 'Release' && matrix.runs-on == 'windows-latest'
-        run: dotnet publish --configuration Release -p:PublishSingleFile=true -p:DebugType=embedded --self-contained --runtime win-arm64 --property:PublishDir=selfcontained-win-arm64
+        run: dotnet publish --configuration Release -p:PublishSingleFile=true -p:DebugType=embedded --self-contained --runtime win-arm64 --property:PublishDir=${{env.DOTNET_ROOT}}/selfcontained-win-arm64
 
       - name: Publish Linux-x64
         if: matrix.configuration == 'Release' && matrix.runs-on == 'ubuntu-latest'
-        run: dotnet publish --configuration Release -p:PublishSingleFile=true -p:DebugType=embedded --self-contained --runtime linux-x64 --property:PublishDir=selfcontained-linux-x64
+        run: dotnet publish --configuration Release -p:PublishSingleFile=true -p:DebugType=embedded --self-contained --runtime linux-x64 --property:PublishDir=${{env.DOTNET_ROOT}}/selfcontained-linux-x64
 
       - name: Publish Linux-arm
         if: matrix.configuration == 'Release' && matrix.runs-on == 'ubuntu-latest'
-        run: dotnet publish --configuration Release -p:PublishSingleFile=true -p:DebugType=embedded --self-contained --runtime linux-arm --property:PublishDir=selfcontained-linux-arm
+        run: dotnet publish --configuration Release -p:PublishSingleFile=true -p:DebugType=embedded --self-contained --runtime linux-arm --property:PublishDir=${{env.DOTNET_ROOT}}/selfcontained-linux-arm
 
       - name: Publish Linux-arm64
         if: matrix.configuration == 'Release' && matrix.runs-on == 'ubuntu-latest'
-        run: dotnet publish --configuration Release -p:PublishSingleFile=true -p:DebugType=embedded --self-contained --runtime linux-arm64 --property:PublishDir=selfcontained-linux-arm64
+        run: dotnet publish --configuration Release -p:PublishSingleFile=true -p:DebugType=embedded --self-contained --runtime linux-arm64 --property:PublishDir=${{env.DOTNET_ROOT}}/selfcontained-linux-arm64
 
       - name: Publish macOS-x64
         if: matrix.configuration == 'Release' && matrix.runs-on == 'macos-latest'
-        run: dotnet publish --configuration Release -p:PublishSingleFile=true -p:DebugType=embedded --self-contained --runtime osx-x64 --property:PublishDir=selfcontained-osx-x64
+        run: dotnet publish --configuration Release -p:PublishSingleFile=true -p:DebugType=embedded --self-contained --runtime osx-x64 --property:PublishDir=${{env.DOTNET_ROOT}}/selfcontained-osx-x64
 
       - name: Publish macOS-arm64
         if: matrix.configuration == 'Release' && matrix.runs-on == 'macos-latest'
-        run: dotnet publish --configuration Release -p:PublishSingleFile=true -p:DebugType=embedded --self-contained --runtime osx-arm64 --property:PublishDir=selfcontained-osx-arm64
+        run: dotnet publish --configuration Release -p:PublishSingleFile=true -p:DebugType=embedded --self-contained --runtime osx-arm64 --property:PublishDir=${{env.DOTNET_ROOT}}/selfcontained-osx-arm64
 
       - name: Upload Windows-x64
         uses: actions/upload-artifact@v3
         if: matrix.configuration == 'Release' && matrix.runs-on == 'windows-latest'
         with:
           name: DepotDownloader-windows-x64
-          path: selfcontained-win-x64
+          path: ${{env.DOTNET_ROOT}}/selfcontained-win-x64
           if-no-files-found: error
 
       - name: Upload Windows-arm64
@@ -84,7 +84,7 @@ jobs:
         if: matrix.configuration == 'Release' && matrix.runs-on == 'windows-latest'
         with:
           name: DepotDownloader-windows-arm64
-          path: selfcontained-win-arm64
+          path: ${{env.DOTNET_ROOT}}/selfcontained-win-arm64
           if-no-files-found: error
 
       - name: Upload Linux-x64
@@ -92,7 +92,7 @@ jobs:
         if: matrix.configuration == 'Release' && matrix.runs-on == 'ubuntu-latest'
         with:
           name: DepotDownloader-linux-x64
-          path: selfcontained-linux-x64
+          path: ${{env.DOTNET_ROOT}}/selfcontained-linux-x64
           if-no-files-found: error
 
       - name: Upload Linux-arm
@@ -100,7 +100,7 @@ jobs:
         if: matrix.configuration == 'Release' && matrix.runs-on == 'ubuntu-latest'
         with:
           name: DepotDownloader-linux-arm
-          path: selfcontained-linux-arm
+          path: ${{env.DOTNET_ROOT}}/selfcontained-linux-arm
           if-no-files-found: error
 
       - name: Upload Linux-arm64
@@ -108,7 +108,7 @@ jobs:
         if: matrix.configuration == 'Release' && matrix.runs-on == 'ubuntu-latest'
         with:
           name: DepotDownloader-linux-arm64
-          path: selfcontained-linux-arm64
+          path: ${{env.DOTNET_ROOT}}/selfcontained-linux-arm64
           if-no-files-found: error
 
       - name: Upload macOS-x64
@@ -116,7 +116,7 @@ jobs:
         if: matrix.configuration == 'Release' && matrix.runs-on == 'macos-latest'
         with:
           name: DepotDownloader-macos-x64
-          path: selfcontained-osx-x64
+          path: ${{env.DOTNET_ROOT}}/selfcontained-osx-x64
           if-no-files-found: error
 
       - name: Upload macOS-arm64
@@ -124,5 +124,5 @@ jobs:
         if: matrix.configuration == 'Release' && matrix.runs-on == 'macos-latest'
         with:
           name: DepotDownloader-macos-arm64
-          path: selfcontained-osx-arm64
+          path: ${{env.DOTNET_ROOT}}/selfcontained-osx-arm64
           if-no-files-found: error
